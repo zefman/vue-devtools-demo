@@ -1,17 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>{{ getFoo }}</h1>
+
+    <button @click="normalMutation">Normal module mutation</button>
+    <button @click="addVuexModule">Add dynamic vuex module</button>
+    <button @click="dynamicMutation">Perform a mutation on the dynamic module</button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HelloWorld from './components/HelloWorld.vue'
+import vuexModule from '@/vuexModule';
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  computed: {
+    ...mapGetters('notDynamic', ['getFoo']),
+  },
+  methods: {
+    addVuexModule() {
+      console.log('Adding dynamic module');
+      this.$store.registerModule('foo', vuexModule);
+    },
+    normalMutation() {
+      this.$store.commit('notDynamic/setFoo', { foo: 'hello world' });
+    },
+    dynamicMutation() {
+      this.$store.commit('foo/setFoo', { foo: 'hello world' });
+    }
   }
 }
 </script>
