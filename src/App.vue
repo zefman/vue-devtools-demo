@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1>{{ getFoo }}</h1>
+    <h1>Normal foo: {{ getFoo }}</h1>
+    <h1>Dynamic foo: {{ dynamicFoo }}</h1>
 
     <button @click="normalMutation">Normal module mutation</button>
     <button @click="addVuexModule">Add dynamic vuex module</button>
@@ -17,6 +18,10 @@ export default {
   name: 'app',
   computed: {
     ...mapGetters('notDynamic', ['getFoo']),
+    dynamicFoo() {
+      if (!this.$store.state.foo) return '';
+      return this.$store.state.foo.foo; 
+    }
   },
   methods: {
     addVuexModule() {
