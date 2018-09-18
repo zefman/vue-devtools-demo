@@ -16,13 +16,10 @@ export const actions = {
 };
 
 export default {
-    // state() {
-        // return {
-            // foo: 'bar'
-        // };
-    // },
-    state: {
-        foo: 'bar',
+    state() {
+        return {
+            foo: 'bar'
+        };
     },
     mutations,
     actions,
